@@ -8,10 +8,9 @@ const cors = require('cors');
 // Import application middleware and route modules.
 const auditLogger = require('./middleware/auditLogger');
 const authRoutes = require('./routes/authRoutes');
-// Routes for Person 2 will be mounted here
-// const financeRoutes = require('./routes/financeRoutes');
-// const auditRoutes = require('./routes/auditRoutes');
-// const exportRoutes = require('./routes/exportRoutes');
+const financeRoutes = require('./routes/financeRoutes');
+const auditRoutes = require('./routes/auditRoutes');
+const exportRoutes = require('./routes/exportRoutes');
 
 // Create the application instance.
 const app = express();
@@ -31,10 +30,10 @@ app.use(auditLogger);
 // Mount the authentication endpoints.
 app.use('/api/auth', authRoutes);
 
-// Person 2 will mount:
-// app.use('/api/finance', financeRoutes);
-// app.use('/api/audit', auditRoutes);
-// app.use('/api/export', exportRoutes);
+// Mount finance, immutable audit-viewer, and compliance-report endpoints.
+app.use('/api/finance', financeRoutes);
+app.use('/api/audit', auditRoutes);
+app.use('/api/export', exportRoutes);
 
 // Provide a simple operational health check.
 app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'VaultDB' }));
