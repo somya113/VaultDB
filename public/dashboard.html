@@ -1,328 +1,176 @@
 <!DOCTYPE html>
-<!-- Standard HTML5 document type definition -->
 <html lang="en">
-<!-- Head element configuring viewport, typography, and stylesheets -->
 <head>
-  <!-- Character set specification -->
   <meta charset="UTF-8">
-  <!-- Viewport settings for cross-device mobile responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Application window title -->
-  <title>VaultDB | Real-Time Immutable Audit Logging Portal</title>
-  <!-- Preconnect to Google Font servers for optimal typography performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Google Font 'Inter' typography import -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Global finance dark theme style definitions -->
+  <title>VaultDB — Audit Dashboard</title>
   <link rel="stylesheet" href="css/style.css">
-  <!-- Specialized dashboard layout and table stylesheet -->
   <link rel="stylesheet" href="css/dashboard.css">
 </head>
-<!-- Body element styled as full dashboard viewport layout -->
 <body class="dashboard-layout">
-  <!-- Sticky Top Navigation Bar (.header) with institutional branding and user status -->
   <header class="header">
-    <!-- Left branding container -->
     <div class="header-brand">
-      <!-- Institutional logo with gold vault icon -->
-      <a href="dashboard.html" class="header-logo" title="VaultDB Compliance Portal">
-        <!-- Vault icon -->
-        <span>🏦</span>
-        <!-- Brand title -->
-        <span>VAULTDB</span>
+      <a href="dashboard.html" class="header-logo">
+        <span class="logo-mark">//</span>
+        <span>VaultDB</span>
       </a>
-      <!-- Regulatory compliance subtitle badge -->
-      <span class="header-tagline">Audit Portal</span>
+      <span class="header-tagline">Audit Log</span>
     </div>
 
-    <!-- Right user section showing active user info, role badge, and logout control -->
     <div class="header-user-section">
-      <!-- Active user profile container -->
       <div class="user-identity">
-        <!-- User email address display label -->
         <span id="userEmail" class="user-email-label">loading...</span>
-        <!-- User role badge (Admin, Writer, Reader) styled dynamically -->
         <span id="userRoleBadge" class="badge badge-normal">Role</span>
       </div>
-      <!-- Session termination logout button -->
-      <button id="logoutBtn" class="btn btn-secondary btn-sm" title="Sign out of VaultDB">
-        <!-- Logout icon -->
-        <span>🚪</span>
-        <!-- Button text -->
+      <button id="logoutBtn" class="btn btn-secondary btn-sm">
         <span>Logout</span>
       </button>
     </div>
   </header>
 
-  <!-- Main portal dashboard content wrapper -->
   <main class="main-container">
-    <!-- 4-Card Statistics Grid (.stats-grid, .stat-card) with colored accent borders -->
-    <section class="stats-grid" aria-label="Key Audit Statistics">
-      <!-- Stat Card 1: Total Queries - Blue Accent Border -->
-      <div class="stat-card stat-card-total">
-        <!-- Card header with label and decorative icon -->
+    <!-- Key Statistics -->
+    <section class="stats-grid">
+      <div class="stat-card">
         <div class="stat-card-header">
-          <!-- Metric title label -->
           <span class="stat-label">Total Queries</span>
-          <!-- Metric theme icon -->
-          <span class="stat-icon" aria-hidden="true">📊</span>
         </div>
-        <!-- Numerical metric value container -->
         <div id="statTotal" class="stat-value">0</div>
-        <!-- Subtitle describing data scope -->
-        <span class="stat-meta">Lifetime queries recorded</span>
+        <span class="stat-meta">Lifetime logged queries</span>
       </div>
 
-      <!-- Stat Card 2: Sensitive Queries - Red Accent Border -->
-      <div class="stat-card stat-card-sensitive">
-        <!-- Card header with label and security alert icon -->
+      <div class="stat-card">
         <div class="stat-card-header">
-          <!-- Metric title label -->
-          <span class="stat-label">Sensitive Queries</span>
-          <!-- Metric theme icon -->
-          <span class="stat-icon" aria-hidden="true">🚨</span>
+          <span class="stat-label">Sensitive Access</span>
         </div>
-        <!-- Numerical metric value container -->
         <div id="statSensitive" class="stat-value" style="color: var(--red);">0</div>
-        <!-- Subtitle describing data scope -->
-        <span class="stat-meta">PII &amp; financial payload detections</span>
+        <span class="stat-meta">SSN / payment field access</span>
       </div>
 
-      <!-- Stat Card 3: Unique Users - Green Accent Border -->
-      <div class="stat-card stat-card-users">
-        <!-- Card header with label and user group icon -->
+      <div class="stat-card">
         <div class="stat-card-header">
-          <!-- Metric title label -->
           <span class="stat-label">Unique Users</span>
-          <!-- Metric theme icon -->
-          <span class="stat-icon" aria-hidden="true">👥</span>
         </div>
-        <!-- Numerical metric value container -->
         <div id="statUsers" class="stat-value" style="color: var(--green);">0</div>
-        <!-- Subtitle describing data scope -->
-        <span class="stat-meta">Distinct identities audited</span>
+        <span class="stat-meta">Distinct accounts audited</span>
       </div>
 
-      <!-- Stat Card 4: Queries Today - Gold Accent Border -->
-      <div class="stat-card stat-card-today">
-        <!-- Card header with label and calendar icon -->
+      <div class="stat-card">
         <div class="stat-card-header">
-          <!-- Metric title label -->
           <span class="stat-label">Queries Today</span>
-          <!-- Metric theme icon -->
-          <span class="stat-icon" aria-hidden="true">📅</span>
         </div>
-        <!-- Numerical metric value container -->
-        <div id="statToday" class="stat-value" style="color: var(--gold);">0</div>
-        <!-- Subtitle describing data scope -->
-        <span class="stat-meta">Current UTC operational day</span>
+        <div id="statToday" class="stat-value" style="color: #60a5fa;">0</div>
+        <span class="stat-meta">Activity past 24 hours</span>
       </div>
     </section>
 
-    <!-- Collapsible Filter Toolbar (.filters-bar) for granular audit ledger queries -->
-    <section class="filters-bar" aria-label="Audit Query Filters">
-      <!-- Filter toolbar title header -->
+    <!-- Search & Filter Controls -->
+    <section class="filters-bar">
       <div class="filters-header">
-        <!-- Title with search filter icon -->
-        <span class="filters-title">
-          <!-- Search filter icon -->
-          <span>🔍</span>
-          <!-- Toolbar title -->
-          <span>Filter Audit Records</span>
-        </span>
+        <span class="filters-title">Filter Logs</span>
       </div>
 
-      <!-- Grid layout containing filter input form controls -->
-      <div class="filters-grid">
-        <!-- Filter 1: User email input -->
+      <div class="filters-controls-grid">
         <div class="filter-item">
-          <!-- Label for user email filter -->
-          <label for="filterUser" class="filter-label">User Email</label>
-          <!-- Email filter text input with gold focus ring -->
-          <input 
-            type="text" 
-            id="filterUser" 
-            placeholder="e.g. admin@finance.com" 
-            autocomplete="off">
+          <label for="filterUser" class="form-label">User Email</label>
+          <input type="text" id="filterUser" placeholder="e.g. sarah@example.com">
         </div>
 
-        <!-- Filter 2: Finance table selector dropdown -->
         <div class="filter-item">
-          <!-- Label for target table filter -->
-          <label for="filterTable" class="filter-label">Accessed Table</label>
-          <!-- Table selection dropdown list -->
+          <label for="filterTable" class="form-label">Table</label>
           <select id="filterTable">
-            <!-- Option representing all database tables -->
             <option value="">All Tables</option>
-            <!-- Option for customer PII table -->
             <option value="customers">customers</option>
-            <!-- Option for bank accounts table -->
             <option value="accounts">accounts</option>
-            <!-- Option for card and bank transactions table -->
             <option value="transactions">transactions</option>
-            <!-- Option for lending loans table -->
             <option value="loans">loans</option>
           </select>
         </div>
 
-        <!-- Filter 3: Date range start picker -->
         <div class="filter-item">
-          <!-- Label for start date filter -->
-          <label for="filterDateFrom" class="filter-label">From Date</label>
-          <!-- Native date picker control for start date boundary -->
+          <label for="filterDateFrom" class="form-label">From</label>
           <input type="date" id="filterDateFrom">
         </div>
 
-        <!-- Filter 4: Date range end picker -->
         <div class="filter-item">
-          <!-- Label for end date filter -->
-          <label for="filterDateTo" class="filter-label">To Date</label>
-          <!-- Native date picker control for end date boundary -->
+          <label for="filterDateTo" class="form-label">To</label>
           <input type="date" id="filterDateTo">
         </div>
 
-        <!-- Filter 5: Sensitivity selector dropdown -->
         <div class="filter-item">
-          <!-- Label for sensitivity filter -->
-          <label for="filterSensitive" class="filter-label">Sensitivity</label>
-          <!-- Sensitivity dropdown selection -->
+          <label for="filterSensitive" class="form-label">Type</label>
           <select id="filterSensitive">
-            <!-- Show all logs regardless of sensitivity -->
             <option value="">All Records</option>
-            <!-- Show only logs flagged as sensitive -->
-            <option value="true">Sensitive Only (🚨)</option>
-            <!-- Show only non-sensitive standard logs -->
-            <option value="false">Normal Only</option>
+            <option value="true">Sensitive Only</option>
+            <option value="false">Standard Only</option>
           </select>
         </div>
 
-        <!-- Filter action buttons container -->
         <div class="filter-actions">
-          <!-- Apply filters button -->
-          <button id="applyFiltersBtn" class="btn btn-gold" title="Apply configured search filters">
-            <!-- Magnifying glass icon -->
-            <span>🔍</span>
-            <!-- Button text -->
-            <span>Apply</span>
-          </button>
-          <!-- Reset filters button -->
-          <button id="resetFiltersBtn" class="btn btn-secondary" title="Clear all filters to default state">
-            <!-- Reset sync icon -->
-            <span>🔄</span>
-            <!-- Button text -->
-            <span>Reset</span>
-          </button>
+          <button id="applyFiltersBtn" class="btn btn-primary btn-sm">Filter</button>
+          <button id="resetFiltersBtn" class="btn btn-secondary btn-sm">Reset</button>
         </div>
       </div>
     </section>
 
-    <!-- Action Bar displaying record counter and PDF export button -->
-    <section class="action-bar" aria-label="Audit Actions">
-      <!-- Dynamic record counter displaying matching logs count -->
-      <div id="recordCount" class="record-counter">
-        <!-- Search icon -->
-        <span>📋</span>
-        <!-- Dynamic record count status text -->
-        <span>Loading immutable audit ledger...</span>
-      </div>
-
-      <!-- Export PDF compliance report button -->
-      <button id="exportPdfBtn" class="btn btn-primary" title="Export signed compliance report as PDF">
-        <!-- PDF document icon -->
-        <span>📄</span>
-        <!-- Button action text -->
-        <span id="exportPdfBtnText">Export PDF Report</span>
+    <!-- Action Bar & Export -->
+    <section class="action-bar">
+      <div id="recordCount" class="record-counter">Loading records...</div>
+      <button id="exportPdfBtn" class="btn btn-secondary btn-sm">
+        <span id="exportPdfBtnText">Export PDF</span>
       </button>
     </section>
 
-    <!-- Responsive Audit Log Table (.audit-table) container -->
+    <!-- Table Container -->
     <div class="table-container">
-      <!-- Main audit ledger data table with 10 columns -->
-      <table id="auditTable" class="audit-table" aria-label="ImmuDB Cryptographic Audit Trail">
-        <!-- Table column headers with gold typography -->
+      <table id="auditTable" class="audit-table">
         <thead>
           <tr>
-            <!-- Column 1: Row sequence index -->
-            <th class="cell-index" scope="col">#</th>
-            <!-- Column 2: Event timestamp -->
-            <th scope="col">Timestamp</th>
-            <!-- Column 3: Authenticated user email -->
-            <th scope="col">User</th>
-            <!-- Column 4: RBAC Role -->
-            <th scope="col">Role</th>
-            <!-- Column 5: SQL Action (SELECT, INSERT, UPDATE, DELETE) -->
-            <th scope="col">Action</th>
-            <!-- Column 6: Accessed finance table -->
-            <th scope="col">Table</th>
-            <!-- Column 7: Query details with truncation -->
-            <th scope="col">Details</th>
-            <!-- Column 8: Sensitivity alert flag -->
-            <th scope="col">Sensitive</th>
-            <!-- Column 9: Severity classification (HIGH, MEDIUM, LOW) -->
-            <th scope="col">Severity</th>
-            <!-- Column 10: Server response latency in ms -->
-            <th scope="col" style="text-align: right;">Response Time</th>
+            <th class="cell-index">#</th>
+            <th>Timestamp</th>
+            <th>User</th>
+            <th>Role</th>
+            <th>Action</th>
+            <th>Table</th>
+            <th>Query Details</th>
+            <th>Sensitive</th>
+            <th>Severity</th>
+            <th style="text-align: right;">Latency</th>
           </tr>
         </thead>
-        <!-- Table body populated dynamically by dashboard.js -->
         <tbody id="auditTableBody">
-          <!-- Initial loading placeholder row -->
           <tr>
-            <!-- Colspan spanning all 10 columns -->
-            <td colspan="10" style="text-align: center; padding: 3rem;">
-              <!-- Loading spinner -->
-              <div class="spinner spinner-lg"></div>
-              <!-- Loading text -->
-              <p style="margin-top: 1rem; color: var(--text-secondary);">Querying ImmuDB ledger records...</p>
+            <td colspan="10" style="text-align: center; padding: 2.5rem;">
+              <div class="spinner"></div>
+              <p style="margin-top: 0.75rem; color: var(--text-muted); font-size: 0.8rem;">Loading ledger records...</p>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <!-- Pagination toolbar container -->
+      <!-- Pagination -->
       <div class="pagination-container">
-        <!-- Page status indicator -->
         <span id="pageInfo" class="page-info">Page 1 of 1</span>
-        <!-- Navigation controls container -->
         <div class="pagination-controls">
-          <!-- Previous page button -->
-          <button id="prevPageBtn" class="btn btn-secondary btn-sm" disabled title="Go to previous page">
-            <span>← Previous</span>
-          </button>
-          <!-- Next page button -->
-          <button id="nextPageBtn" class="btn btn-secondary btn-sm" disabled title="Go to next page">
-            <span>Next →</span>
-          </button>
+          <button id="prevPageBtn" class="btn btn-secondary btn-sm" disabled>Previous</button>
+          <button id="nextPageBtn" class="btn btn-secondary btn-sm" disabled>Next</button>
         </div>
       </div>
     </div>
   </main>
 
-  <!-- Dashboard footer containing compliance and cryptographic ledger status -->
   <footer class="dashboard-footer">
-    <!-- Legal compliance certification text -->
-    <span>VaultDB &copy; 2026. Cryptographically Sealed Financial Audit Framework.</span>
-    <!-- Verified ledger seal badge -->
+    <span>VaultDB &bull; Internal Compliance &amp; Audit Trail</span>
     <div class="footer-seal">
-      <!-- Shield check emoji -->
-      <span>🛡️</span>
-      <!-- Ledger guarantee label -->
-      <span>ImmuDB Tamper-Proof Audit Trail Active</span>
+      <span>ImmuDB Ledger: Active</span>
     </div>
   </footer>
 
-  <!-- Floating Toast Notifications Container -->
-  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+  <div id="toastContainer" class="toast-container"></div>
 
-  <!-- Load JavaScript dependencies in strict specified order -->
-  <!-- 1. Authentication module: JWT token storage, headers, and logout handling -->
   <script src="js/auth.js"></script>
-  <!-- 2. Export module: PDF report generation and download trigger -->
   <script src="js/export.js"></script>
-  <!-- 3. Filters module: Filter state management and search event handlers -->
   <script src="js/filters.js"></script>
-  <!-- 4. Dashboard module: Data fetching, statistics calculation, and table rendering -->
   <script src="js/dashboard.js"></script>
 </body>
 </html>

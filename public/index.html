@@ -1,69 +1,40 @@
 <!DOCTYPE html>
-<!-- Declare standard HTML5 document type -->
 <html lang="en">
-<!-- Head section containing document metadata, typography, and stylesheets -->
 <head>
-  <!-- Character encoding declaration for UTF-8 standard -->
   <meta charset="UTF-8">
-  <!-- Responsive viewport meta tag for adaptive rendering across devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Web application title displayed in browser tab -->
-  <title>VaultDB | Secure Financial Audit Portal - Login</title>
-  <!-- Preconnect to Google Font origins for high performance font asset delivery -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Load Inter font family from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Load primary application stylesheet containing dark finance theme design tokens -->
+  <title>VaultDB — Audit & Access Control</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<!-- Body element styled as full viewport centered authentication layout -->
 <body class="auth-wrapper">
-  <!-- Main centered authentication card container -->
   <main class="auth-card">
-    <!-- Header section with institutional logo and compliance taglines -->
     <header class="auth-header">
-      <!-- Branded application title with gold bank vault emoji and gold text -->
       <h1 class="brand-title">
-        <!-- Institutional Bank Emoji -->
-        <span>🏦</span>
-        <!-- Signature Brand Name -->
-        <span>VAULTDB</span>
+        <span class="logo-mark">//</span>
+        <span>VaultDB</span>
       </h1>
-      <!-- Subtitle highlighting regulatory compliance scope -->
-      <p class="auth-subtitle">GDPR &amp; HIPAA Compliant Audit Logging</p>
+      <p class="auth-subtitle">Database Access & Audit Ledger</p>
     </header>
 
-    <!-- Alert container for rendering asynchronous login failure messages -->
-    <div id="loginError" class="alert alert-error hidden" role="alert" aria-live="assertive">
-      <!-- Error icon prefix -->
-      <span>⚠️</span>
-      <!-- Dynamic error message text inserted by auth.js -->
-      <span id="loginErrorText">Invalid email or password.</span>
+    <div id="loginError" class="alert alert-error hidden" role="alert">
+      <span id="loginErrorText">Invalid credentials</span>
     </div>
 
-    <!-- Login credentials submission form -->
-    <form id="loginForm" autocomplete="on" novalidate>
-      <!-- Form group for user email address input -->
+    <form id="loginForm" autocomplete="on">
       <div class="form-group">
-        <!-- Label for email field -->
-        <label for="email" class="form-label">Corporate Email Address</label>
-        <!-- High-security email text input with gold focus ring -->
+        <label for="email" class="form-label">Email</label>
         <input 
           type="email" 
           id="email" 
           name="email" 
-          placeholder="name@finance.com" 
+          placeholder="admin@finance.com" 
           required 
           autocomplete="email" 
           autofocus>
       </div>
 
-      <!-- Form group for password authentication credentials -->
       <div class="form-group">
-        <!-- Label for password field -->
-        <label for="password" class="form-label">Account Password</label>
-        <!-- Masked password input with gold focus ring -->
+        <label for="password" class="form-label">Password</label>
         <input 
           type="password" 
           id="password" 
@@ -73,78 +44,46 @@
           autocomplete="current-password">
       </div>
 
-      <!-- Primary call-to-action button to submit credentials -->
-      <button type="submit" id="loginSubmitBtn" class="btn btn-gold" style="width: 100%; margin-top: 0.5rem;">
-        <!-- Visual padlock icon -->
-        <span>🔒</span>
-        <!-- Button label text -->
-        <span id="loginBtnText">Authenticate to Vault</span>
+      <button type="submit" id="loginSubmitBtn" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+        <span id="loginBtnText">Sign In</span>
       </button>
     </form>
 
-    <!-- Immutable ledger security verification notice -->
     <div class="compliance-seal">
-      <!-- Verified cryptographic shield badge -->
-      <span>Protected by ImmuDB Immutable Audit Logs 🔒</span>
+      <span>Immutable logging enforced via ImmuDB ledger</span>
     </div>
 
-    <!-- Helper box showing seeded demo credentials for testing -->
     <aside class="demo-box">
-      <!-- Demo section heading -->
-      <div class="demo-title">
-        <!-- Key emoji -->
-        <span>🔑</span>
-        <!-- Section title -->
-        <span>Pre-Configured Demo Accounts (Click to Fill)</span>
-      </div>
-      <!-- Unordered list of available demo test accounts -->
+      <div class="demo-title">Test Accounts</div>
       <ul class="demo-list">
-        <!-- Admin role credentials item with click-to-autofill capability -->
-        <li class="demo-item" onclick="fillCredentials('admin@finance.com', 'password123')" title="Click to autofill Admin credentials">
-          <!-- User email address -->
+        <li class="demo-item" onclick="fillCredentials('admin@finance.com', 'password123')">
           <span class="demo-email">admin@finance.com</span>
-          <!-- Role classification badge -->
           <span class="badge badge-admin">Admin</span>
         </li>
-        <!-- Writer role credentials item with click-to-autofill capability -->
-        <li class="demo-item" onclick="fillCredentials('writer@finance.com', 'password123')" title="Click to autofill Writer credentials">
-          <!-- User email address -->
+        <li class="demo-item" onclick="fillCredentials('writer@finance.com', 'password123')">
           <span class="demo-email">writer@finance.com</span>
-          <!-- Role classification badge -->
           <span class="badge badge-writer">Writer</span>
         </li>
-        <!-- Reader role credentials item with click-to-autofill capability -->
-        <li class="demo-item" onclick="fillCredentials('reader@finance.com', 'password123')" title="Click to autofill Reader credentials">
-          <!-- User email address -->
+        <li class="demo-item" onclick="fillCredentials('reader@finance.com', 'password123')">
           <span class="demo-email">reader@finance.com</span>
-          <!-- Role classification badge -->
           <span class="badge badge-reader">Reader</span>
         </li>
       </ul>
-      <!-- Shared demo credentials note -->
-      <p style="margin-top: 0.5rem; color: var(--text-secondary); font-size: 0.7rem; text-align: center;">
-        Default Password: <code style="color: var(--gold); font-family: monospace;">password123</code>
+      <p style="margin-top: 0.5rem; color: var(--text-faint); font-size: 0.725rem; text-align: center;">
+        Password for all: <code style="color: var(--text-muted); font-family: var(--font-mono);">password123</code>
       </p>
     </aside>
   </main>
 
-  <!-- Container for interactive floating toast alerts -->
-  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+  <div id="toastContainer" class="toast-container"></div>
 
-  <!-- Inline helper script for convenience clicking on demo accounts -->
   <script>
-    // Autofill credentials when clicking on demo user entries
     function fillCredentials(email, password) {
-      // Set the email input value
       document.getElementById('email').value = email;
-      // Set the password input value
       document.getElementById('password').value = password;
-      // Focus on the submit button for convenient immediate keyboard enter
       document.getElementById('loginSubmitBtn').focus();
     }
   </script>
-
-  <!-- Load authentication logic script handling JWT verification and login API calls -->
   <script src="js/auth.js"></script>
 </body>
 </html>
