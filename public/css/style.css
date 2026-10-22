@@ -1,0 +1,854 @@
+/* ========================================================================== */
+/* VAULTDB GLOBAL STYLESHEET - PROFESSIONAL FINANCE DARK THEME (BLOOMBERG/STRIPE) */
+/* ========================================================================== */
+
+/* Import Google Font 'Inter' for clean, modern institutional finance typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Define root CSS variables for consistent application-wide design tokens */
+:root {
+  /* Deep navy primary background color representing institutional security */
+  --bg-primary: #0a0e1a;
+  /* Dark surface background color for elevated cards, modals, and navbars */
+  --bg-secondary: #111827;
+  /* Slate surface background for input controls, table headers, and tags */
+  --bg-tertiary: #1f2937;
+  /* Signature finance gold accent color for primary actions and brand emphasis */
+  --gold: #f59e0b;
+  /* Darker gold shade for button hover and active states */
+  --gold-hover: #d97706;
+  /* Gold glow color for focus rings and highlights */
+  --gold-glow: rgba(245, 158, 11, 0.25);
+  /* Informational blue accent for metrics and read operations */
+  --blue: #3b82f6;
+  /* Success green accent for authorized users, healthy stats, and write operations */
+  --green: #10b981;
+  /* Danger red accent for sensitive queries, critical anomalies, and delete operations */
+  --red: #ef4444;
+  /* Warning orange accent for medium severity classifications and updates */
+  --orange: #f97316;
+  /* High-contrast primary text color for crisp readability on dark surfaces */
+  --text-primary: #e5e7eb;
+  /* Muted secondary text color for supporting captions, metadata, and timestamps */
+  --text-secondary: #9ca3af;
+  /* Standard structural border color defining container partitions */
+  --border: #374151;
+  /* Subtle shadow token for elevation of interactive elements */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  /* Pronounced shadow token for floating cards and navigation overlays */
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+  /* Standard transition curve for fluid user interface responses */
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Universal box-sizing reset to ensure consistent cross-browser dimensions */
+*, *::before, *::after {
+  /* Include padding and border in the element's total calculated width and height */
+  box-sizing: border-box;
+  /* Eliminate default browser margins */
+  margin: 0;
+  /* Eliminate default browser padding */
+  padding: 0;
+}
+
+/* Base HTML and body typography setup */
+html, body {
+  /* Ensure viewport fills available screen height */
+  min-height: 100vh;
+  /* Apply dark navy primary background color */
+  background-color: var(--bg-primary);
+  /* Set default text color to high-contrast off-white */
+  color: var(--text-primary);
+  /* Apply Google Font 'Inter' with standard system fallbacks */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Improve font rendering and smoothing on webkit browsers */
+  -webkit-font-smoothing: antialiased;
+  /* Improve font rendering on Firefox */
+  -moz-osx-font-smoothing: grayscale;
+  /* Standard institutional line height for comfortable legibility */
+  line-height: 1.5;
+}
+
+/* Standardized anchor link styling */
+a {
+  /* Inherit text color from parent container */
+  color: inherit;
+  /* Remove default underline decoration */
+  text-decoration: none;
+  /* Smooth color transition on hover */
+  transition: var(--transition);
+}
+
+/* ========================================================================== */
+/* BUTTON COMPONENT VARIANTS */
+/* ========================================================================== */
+
+/* Base button class with shared interactive characteristics */
+.btn {
+  /* Display as inline-flex to align icons and text horizontally */
+  display: inline-flex;
+  /* Center contents along the vertical axis */
+  align-items: center;
+  /* Center contents along the horizontal axis */
+  justify-content: center;
+  /* Space between potential child icons and button labels */
+  gap: 0.5rem;
+  /* Standard padding for comfortable clickable target */
+  padding: 0.625rem 1.25rem;
+  /* Inherit typography settings */
+  font-family: inherit;
+  /* Medium font weight for clear call-to-action prominence */
+  font-weight: 600;
+  /* Base text size */
+  font-size: 0.875rem;
+  /* Subtle rounded corners matching modern financial dashboards */
+  border-radius: 0.375rem;
+  /* Set border property explicitly for color overrides */
+  border: 1px solid transparent;
+  /* Show pointer cursor on hover */
+  cursor: pointer;
+  /* Prevent text selection when clicking buttons rapidly */
+  user-select: none;
+  /* Fluid transitions for background, border, and transform effects */
+  transition: var(--transition);
+}
+
+/* Disabled button state */
+.btn:disabled, .btn[disabled] {
+  /* Reduce opacity to indicate non-interactive status */
+  opacity: 0.5;
+  /* Disable mouse events */
+  cursor: not-allowed;
+  /* Neutralize hover transform */
+  transform: none !important;
+}
+
+/* Gold finance action button */
+.btn-gold {
+  /* Signature finance gold background */
+  background-color: var(--gold);
+  /* Dark text color for maximum contrast on bright gold */
+  color: #0a0e1a;
+  /* Matching gold border */
+  border-color: var(--gold);
+}
+
+/* Gold button hover state */
+.btn-gold:hover:not(:disabled) {
+  /* Darker gold shade on hover */
+  background-color: var(--gold-hover);
+  /* Matching darker gold border */
+  border-color: var(--gold-hover);
+  /* Subtle upward lift effect */
+  transform: translateY(-1px);
+  /* Gold ambient shadow */
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* Primary blue button */
+.btn-primary {
+  /* Solid institutional blue background */
+  background-color: var(--blue);
+  /* Crisp white label text */
+  color: #ffffff;
+  /* Matching blue border */
+  border-color: var(--blue);
+}
+
+/* Primary blue button hover state */
+.btn-primary:hover:not(:disabled) {
+  /* Darker blue on hover */
+  background-color: #2563eb;
+  /* Darker border on hover */
+  border-color: #2563eb;
+  /* Subtle lift effect */
+  transform: translateY(-1px);
+  /* Blue ambient shadow */
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Secondary dark surface button */
+.btn-secondary {
+  /* Dark slate background matching secondary surface */
+  background-color: var(--bg-tertiary);
+  /* Light text color */
+  color: var(--text-primary);
+  /* Subtle border line */
+  border-color: var(--border);
+}
+
+/* Secondary button hover state */
+.btn-secondary:hover:not(:disabled) {
+  /* Slightly brighter dark surface on hover */
+  background-color: #2d3748;
+  /* Lighten border on hover */
+  border-color: var(--text-secondary);
+  /* Subtle upward lift */
+  transform: translateY(-1px);
+}
+
+/* Danger red action button */
+.btn-danger {
+  /* Solid alert red background */
+  background-color: var(--red);
+  /* High-contrast white label text */
+  color: #ffffff;
+  /* Matching red border */
+  border-color: var(--red);
+}
+
+/* Danger button hover state */
+.btn-danger:hover:not(:disabled) {
+  /* Darker red on hover */
+  background-color: #dc2626;
+  /* Darker border on hover */
+  border-color: #dc2626;
+  /* Subtle lift effect */
+  transform: translateY(-1px);
+  /* Red ambient shadow */
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* Small button variant for compact toolbars and table rows */
+.btn-sm {
+  /* Compact vertical and horizontal padding */
+  padding: 0.375rem 0.75rem;
+  /* Smaller font size for space efficiency */
+  font-size: 0.75rem;
+  /* Reduced border radius */
+  border-radius: 0.25rem;
+}
+
+/* ========================================================================== */
+/* BADGE COMPONENT VARIANTS */
+/* ========================================================================== */
+
+/* Base badge class */
+.badge {
+  /* Display inline-flex to center text */
+  display: inline-flex;
+  /* Vertically align badge contents */
+  align-items: center;
+  /* Horizontally align badge contents */
+  justify-content: center;
+  /* Compact padding for chip aesthetic */
+  padding: 0.2rem 0.55rem;
+  /* Small legible font size */
+  font-size: 0.7rem;
+  /* Bold weight for immediate visual categorization */
+  font-weight: 700;
+  /* Fully pill-shaped or rounded corners */
+  border-radius: 9999px;
+  /* Uppercase transformation for institutional look */
+  text-transform: uppercase;
+  /* Tracking spacing between characters */
+  letter-spacing: 0.04em;
+  /* Single-line presentation */
+  white-space: nowrap;
+  /* Border for structural definition */
+  border: 1px solid transparent;
+}
+
+/* Sensitive query badge - High visibility security alert */
+.badge-sensitive {
+  /* Deep translucent red background */
+  background-color: rgba(239, 68, 68, 0.15);
+  /* High-contrast bright red text */
+  color: #f87171;
+  /* Solid red border */
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+/* Normal / benign query badge */
+.badge-normal {
+  /* Translucent gray background */
+  background-color: rgba(156, 163, 175, 0.12);
+  /* Soft muted gray text */
+  color: #9ca3af;
+  /* Subtle border */
+  border-color: rgba(156, 163, 175, 0.25);
+}
+
+/* High severity badge */
+.badge-high {
+  /* Translucent crimson background */
+  background-color: rgba(239, 68, 68, 0.2);
+  /* Bright alert red text */
+  color: #ef4444;
+  /* Crimson border */
+  border-color: rgba(239, 68, 68, 0.5);
+}
+
+/* Medium severity badge */
+.badge-medium {
+  /* Translucent amber background */
+  background-color: rgba(249, 115, 22, 0.18);
+  /* Warning orange text */
+  color: #fb923c;
+  /* Amber border */
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+/* Low severity badge */
+.badge-low {
+  /* Translucent emerald background */
+  background-color: rgba(16, 185, 129, 0.15);
+  /* Calm green text */
+  color: #34d399;
+  /* Emerald border */
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+/* Admin role badge */
+.badge-admin {
+  /* Translucent gold background for executive tier */
+  background-color: rgba(245, 158, 11, 0.18);
+  /* Signature gold text */
+  color: var(--gold);
+  /* Gold border */
+  border-color: rgba(245, 158, 11, 0.45);
+}
+
+/* Writer role badge */
+.badge-writer {
+  /* Translucent blue background for read-write access */
+  background-color: rgba(59, 130, 246, 0.18);
+  /* Sky blue text */
+  color: #60a5fa;
+  /* Blue border */
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+/* Reader role badge */
+.badge-reader {
+  /* Translucent teal background for read-only tier */
+  background-color: rgba(20, 184, 166, 0.15);
+  /* Teal text */
+  color: #2dd4bf;
+  /* Teal border */
+  border-color: rgba(20, 184, 166, 0.35);
+}
+
+/* Action SQL badges */
+.badge-action-select {
+  /* Blue background for read/select queries */
+  background-color: rgba(59, 130, 246, 0.15);
+  /* Blue text */
+  color: #60a5fa;
+  /* Blue border */
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.badge-action-insert {
+  /* Green background for create/insert queries */
+  background-color: rgba(16, 185, 129, 0.15);
+  /* Green text */
+  color: #34d399;
+  /* Green border */
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.badge-action-update {
+  /* Orange background for modify/update queries */
+  background-color: rgba(249, 115, 22, 0.15);
+  /* Orange text */
+  color: #fb923c;
+  /* Orange border */
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+.badge-action-delete {
+  /* Red background for destructive delete queries */
+  background-color: rgba(239, 68, 68, 0.15);
+  /* Red text */
+  color: #f87171;
+  /* Red border */
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ========================================================================== */
+/* FORM INPUT CONTROLS WITH GOLD FOCUS RINGS */
+/* ========================================================================== */
+
+/* General form input styling for text, email, password, select, and date fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+  /* Ensure element expands across allocated parent container */
+  width: 100%;
+  /* Padding for comfortable typing and touch interaction */
+  padding: 0.625rem 0.875rem;
+  /* Elevated slate background */
+  background-color: var(--bg-tertiary);
+  /* Clean structural border */
+  border: 1px solid var(--border);
+  /* Rounded corners */
+  border-radius: 0.375rem;
+  /* Primary text color */
+  color: var(--text-primary);
+  /* Inherit Inter typography */
+  font-family: inherit;
+  /* Standard font size */
+  font-size: 0.875rem;
+  /* Smooth transition for border and focus glow */
+  transition: var(--transition);
+  /* Remove default system outline */
+  outline: none;
+}
+
+/* Placeholder text styling */
+input::placeholder {
+  /* Muted placeholder text color */
+  color: #6b7280;
+}
+
+/* GOLD FOCUS RING for all form inputs */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+select:focus {
+  /* Highlight border with signature finance gold */
+  border-color: var(--gold);
+  /* Prominent gold ambient glow ring */
+  box-shadow: 0 0 0 3px var(--gold-glow);
+  /* Prevent default browser focus rectangle */
+  outline: none;
+}
+
+/* Form group container */
+.form-group {
+  /* Display as vertical stack */
+  display: flex;
+  /* Stack label above input */
+  flex-direction: column;
+  /* Small gap between label and input */
+  gap: 0.375rem;
+  /* Margin separating consecutive form groups */
+  margin-bottom: 1rem;
+}
+
+/* Form label typography */
+.form-label {
+  /* Medium font size for labels */
+  font-size: 0.8125rem;
+  /* Medium weight for clarity */
+  font-weight: 500;
+  /* Secondary text color */
+  color: var(--text-secondary);
+}
+
+/* ========================================================================== */
+/* ALERT BANNERS */
+/* ========================================================================== */
+
+/* Base alert banner styling */
+.alert {
+  /* Comfortable internal padding */
+  padding: 0.75rem 1rem;
+  /* Rounded corners matching cards */
+  border-radius: 0.375rem;
+  /* Legible alert font size */
+  font-size: 0.875rem;
+  /* Separation from neighboring elements */
+  margin-bottom: 1rem;
+  /* Display flex for icon and message alignment */
+  display: flex;
+  /* Align icon and text vertically */
+  align-items: center;
+  /* Gap between icon and text */
+  gap: 0.625rem;
+  /* Border for structural prominence */
+  border: 1px solid transparent;
+  /* Smooth appearance */
+  transition: var(--transition);
+}
+
+/* Error alert variant */
+.alert-error {
+  /* Subtle crimson background tint */
+  background-color: rgba(239, 68, 68, 0.12);
+  /* Vibrant error red text */
+  color: #f87171;
+  /* Red perimeter border */
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+/* Success alert variant */
+.alert-success {
+  /* Subtle emerald background tint */
+  background-color: rgba(16, 185, 129, 0.12);
+  /* Crisp emerald green text */
+  color: #34d399;
+  /* Green perimeter border */
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+/* Hidden utility class */
+.hidden {
+  /* Completely hide element from layout */
+  display: none !important;
+}
+
+/* ========================================================================== */
+/* TOAST NOTIFICATION COMPONENT */
+/* ========================================================================== */
+
+/* Fixed container positioning toasts at the top-right of the viewport */
+.toast-container {
+  /* Fixed positioning relative to the browser window */
+  position: fixed;
+  /* Position near the top margin */
+  top: 1.25rem;
+  /* Position near the right margin */
+  right: 1.25rem;
+  /* Highest z-index layer to float above all components */
+  z-index: 9999;
+  /* Display as vertical stack */
+  display: flex;
+  /* Stack newer toasts downwards */
+  flex-direction: column;
+  /* Gap between multiple simultaneous toasts */
+  gap: 0.625rem;
+  /* Prevent intercepting clicks outside the toasts */
+  pointer-events: none;
+}
+
+/* Individual toast card */
+.toast {
+  /* Re-enable pointer events for interactive toast dismiss buttons */
+  pointer-events: auto;
+  /* Dark surface background matching dashboard aesthetics */
+  background-color: var(--bg-secondary);
+  /* High-contrast text */
+  color: var(--text-primary);
+  /* Border separating toast from background */
+  border: 1px solid var(--border);
+  /* Gold left accent line */
+  border-left: 4px solid var(--gold);
+  /* Rounded corners */
+  border-radius: 0.375rem;
+  /* Padding inside toast */
+  padding: 0.75rem 1.25rem;
+  /* Toast font size */
+  font-size: 0.875rem;
+  /* Medium font weight */
+  font-weight: 500;
+  /* Deep floating shadow */
+  box-shadow: var(--shadow-lg);
+  /* Display as inline-flex */
+  display: flex;
+  /* Vertically center icon and message */
+  align-items: center;
+  /* Gap between icon and message */
+  gap: 0.5rem;
+  /* Slide-in keyframe animation */
+  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  /* Minimum width for visual consistency */
+  min-width: 260px;
+  /* Maximum width for compact alerts */
+  max-width: 400px;
+}
+
+/* Toast success modifier */
+.toast-success {
+  /* Green left accent border */
+  border-left-color: var(--green);
+}
+
+/* Toast error modifier */
+.toast-error {
+  /* Red left accent border */
+  border-left-color: var(--red);
+}
+
+/* Slide in animation definition */
+@keyframes toastSlideIn {
+  from {
+    /* Start offset to the right and invisible */
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    /* Slide into natural position and become visible */
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Slide out animation definition */
+@keyframes toastSlideOut {
+  from {
+    /* Start from visible position */
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    /* Slide out to the right and disappear */
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* ========================================================================== */
+/* SPINNER COMPONENT */
+/* ========================================================================== */
+
+/* Loading spinner with gold accent */
+.spinner {
+  /* Width of circular spinner */
+  width: 1.25rem;
+  /* Height of circular spinner */
+  height: 1.25rem;
+  /* Fully circular border */
+  border-radius: 50%;
+  /* Translucent border for track */
+  border: 2px solid rgba(245, 158, 11, 0.2);
+  /* Solid gold top border for rotation head */
+  border-top-color: var(--gold);
+  /* Continuous rotating animation */
+  animation: spinnerRotate 0.8s linear infinite;
+  /* Display as inline-block */
+  display: inline-block;
+}
+
+/* Large spinner variant */
+.spinner-lg {
+  /* Larger diameter for full-page loading indicators */
+  width: 2.5rem;
+  height: 2.5rem;
+  /* Thicker border track */
+  border-width: 3px;
+}
+
+/* Continuous rotation keyframes */
+@keyframes spinnerRotate {
+  to {
+    /* Complete 360-degree rotation */
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================================================== */
+/* CUSTOMIZED DARK SCROLLBARS */
+/* ========================================================================== */
+
+/* Webkit scrollbar width and height */
+::-webkit-scrollbar {
+  /* Set vertical scrollbar width */
+  width: 8px;
+  /* Set horizontal scrollbar height */
+  height: 8px;
+}
+
+/* Webkit scrollbar track */
+::-webkit-scrollbar-track {
+  /* Dark navy track background matching base primary background */
+  background: var(--bg-primary);
+}
+
+/* Webkit scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  /* Dark slate thumb color */
+  background: var(--border);
+  /* Subtle rounded edges on scrollbar thumb */
+  border-radius: 4px;
+}
+
+/* Webkit scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  /* Lighter thumb on hover for tactile responsiveness */
+  background: #4b5563;
+}
+
+/* ========================================================================== */
+/* LOGIN / AUTHENTICATION PAGE LAYOUT */
+/* ========================================================================== */
+
+/* Centered container wrapper for authentication screen */
+.auth-wrapper {
+  /* Full screen minimum height */
+  min-height: 100vh;
+  /* Flexbox display to center content perfectly */
+  display: flex;
+  /* Stack elements vertically */
+  flex-direction: column;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  justify-content: center;
+  /* Padding for mobile screens */
+  padding: 1.5rem;
+  /* Radial subtle background gradient for institutional visual depth */
+  background: radial-gradient(circle at 50% 20%, rgba(31, 41, 55, 0.5) 0%, rgba(10, 14, 26, 1) 70%);
+}
+
+/* Authentication card container */
+.auth-card {
+  /* Strict maximum width for login card */
+  width: 100%;
+  max-width: 440px;
+  /* Dark surface background */
+  background-color: var(--bg-secondary);
+  /* Structural boundary border */
+  border: 1px solid var(--border);
+  /* Top accent rule in signature finance gold */
+  border-top: 4px solid var(--gold);
+  /* Rounded corners */
+  border-radius: 0.5rem;
+  /* Internal spacing */
+  padding: 2.25rem;
+  /* Deep institutional elevation shadow */
+  box-shadow: var(--shadow-lg);
+}
+
+/* Brand header inside login card */
+.auth-header {
+  /* Center brand text */
+  text-align: center;
+  /* Separation from the form */
+  margin-bottom: 1.75rem;
+}
+
+/* Primary logo brand styling */
+.brand-title {
+  /* Bold font weight */
+  font-weight: 800;
+  /* Prominent title size */
+  font-size: 1.75rem;
+  /* Signature gold brand color */
+  color: var(--gold);
+  /* Spacing between letters */
+  letter-spacing: 0.05em;
+  /* Bottom margin */
+  margin-bottom: 0.35rem;
+  /* Center items */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Subtitle for regulatory compliance */
+.auth-subtitle {
+  /* Secondary text color */
+  color: var(--text-secondary);
+  /* Subtitle font size */
+  font-size: 0.8125rem;
+  /* Medium weight */
+  font-weight: 500;
+  /* Subtle letter spacing */
+  letter-spacing: 0.02em;
+}
+
+/* ImmuDB security badge */
+.compliance-seal {
+  /* Display inline-flex */
+  display: inline-flex;
+  /* Align icon and text */
+  align-items: center;
+  /* Center contents */
+  justify-content: center;
+  /* Small gap between lock icon and label */
+  gap: 0.375rem;
+  /* Green translucent background */
+  background-color: rgba(16, 185, 129, 0.1);
+  /* Emerald text */
+  color: #34d399;
+  /* Subtle green border */
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  /* Rounded pill */
+  border-radius: 9999px;
+  /* Compact padding */
+  padding: 0.25rem 0.75rem;
+  /* Compact font size */
+  font-size: 0.75rem;
+  /* Medium weight */
+  font-weight: 500;
+  /* Margin above demo helper */
+  margin-top: 1.5rem;
+  /* Width fits contents */
+  width: 100%;
+}
+
+/* Helper box displaying demo credentials */
+.demo-box {
+  /* Dark tertiary background */
+  background-color: var(--bg-tertiary);
+  /* Border */
+  border: 1px solid var(--border);
+  /* Rounded corners */
+  border-radius: 0.375rem;
+  /* Padding */
+  padding: 1rem;
+  /* Separation from form */
+  margin-top: 1.5rem;
+  /* Font size */
+  font-size: 0.75rem;
+}
+
+/* Demo box title */
+.demo-title {
+  /* Bold gold header */
+  color: var(--gold);
+  /* Bold weight */
+  font-weight: 600;
+  /* Bottom spacing */
+  margin-bottom: 0.5rem;
+  /* Uppercase */
+  text-transform: uppercase;
+  /* Letter spacing */
+  letter-spacing: 0.05em;
+  /* Display flex */
+  display: flex;
+  /* Align items */
+  align-items: center;
+  /* Gap */
+  gap: 0.375rem;
+}
+
+/* Demo account item list */
+.demo-list {
+  /* Remove bullet points */
+  list-style: none;
+  /* Flex vertical column */
+  display: flex;
+  /* Direction */
+  flex-direction: column;
+  /* Spacing */
+  gap: 0.5rem;
+}
+
+/* Demo account individual item */
+.demo-item {
+  /* Flex horizontal row */
+  display: flex;
+  /* Spread email and role */
+  justify-content: space-between;
+  /* Align items */
+  align-items: center;
+  /* Padding */
+  padding: 0.25rem 0.5rem;
+  /* Background hover effect */
+  border-radius: 0.25rem;
+  /* Cursor pointer to autofill */
+  cursor: pointer;
+  /* Transition */
+  transition: var(--transition);
+}
+
+/* Demo item hover */
+.demo-item:hover {
+  /* Highlight background on hover */
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+/* Demo email text */
+.demo-email {
+  /* Primary text */
+  color: var(--text-primary);
+  /* Monospace font for technical clarity */
+  font-family: monospace;
+}

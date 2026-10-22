@@ -1,0 +1,692 @@
+/* ========================================================================== */
+/* VAULTDB AUDIT PORTAL STYLESHEET - DASHBOARD & AUDIT LOG VIEWER */
+/* ========================================================================== */
+
+/* Main dashboard layout wrapper */
+.dashboard-layout {
+  /* Ensure page fills at least entire viewport height */
+  min-height: 100vh;
+  /* Flex vertical column layout */
+  display: flex;
+  /* Stack navbar, main content, and footer vertically */
+  flex-direction: column;
+}
+
+/* ========================================================================== */
+/* STICKY TOP NAVIGATION BAR (.header) */
+/* ========================================================================== */
+
+/* Top header navigation container */
+.header {
+  /* Sticky positioning keeps navigation in place during deep table scrolling */
+  position: sticky;
+  /* Affix directly to top edge of viewport */
+  top: 0;
+  /* Elevated z-index above table and grid contents */
+  z-index: 1000;
+  /* Dark surface background matching institutional palette */
+  background-color: var(--bg-secondary);
+  /* Boundary border separating navigation from main workspace */
+  border-bottom: 1px solid var(--border);
+  /* Top accent rule in signature finance gold */
+  border-top: 3px solid var(--gold);
+  /* Horizontal and vertical padding */
+  padding: 0.875rem 2rem;
+  /* Flex container to separate left branding and right user profile */
+  display: flex;
+  /* Vertically align logo and user info */
+  align-items: center;
+  /* Push logo to the left and user controls to the right */
+  justify-content: space-between;
+  /* Deep shadow for elevation depth */
+  box-shadow: var(--shadow-sm);
+  /* Subtle backdrop blur for modern aesthetic */
+  backdrop-filter: blur(8px);
+}
+
+/* Navigation brand area on the left */
+.header-brand {
+  /* Flex row layout */
+  display: flex;
+  /* Align brand icon and text */
+  align-items: center;
+  /* Gap between icon and brand text */
+  gap: 0.75rem;
+}
+
+/* Navigation logo text */
+.header-logo {
+  /* Heavy font weight for executive branding */
+  font-weight: 800;
+  /* Font size */
+  font-size: 1.25rem;
+  /* Signature gold brand color */
+  color: var(--gold);
+  /* Spacing between letters */
+  letter-spacing: 0.05em;
+  /* Flex display */
+  display: flex;
+  /* Vertically align icon with text */
+  align-items: center;
+  /* Gap between bank icon and name */
+  gap: 0.5rem;
+}
+
+/* Tagline badge beside brand */
+.header-tagline {
+  /* Muted text color */
+  color: var(--text-secondary);
+  /* Small font size */
+  font-size: 0.75rem;
+  /* Left border divider separating logo from subtitle */
+  border-left: 1px solid var(--border);
+  /* Left padding */
+  padding-left: 0.75rem;
+  /* Uppercase */
+  text-transform: uppercase;
+  /* Letter spacing */
+  letter-spacing: 0.05em;
+}
+
+/* Navigation user profile and controls on the right */
+.header-user-section {
+  /* Flex row layout */
+  display: flex;
+  /* Vertically center user email, role badge, and logout */
+  align-items: center;
+  /* Spacing between user elements */
+  gap: 1.25rem;
+}
+
+/* User identity pill */
+.user-identity {
+  /* Flex row */
+  display: flex;
+  /* Vertically center */
+  align-items: center;
+  /* Gap between email and role badge */
+  gap: 0.625rem;
+}
+
+/* User email label in header */
+.user-email-label {
+  /* High contrast primary text */
+  color: var(--text-primary);
+  /* Font size */
+  font-size: 0.875rem;
+  /* Medium weight */
+  font-weight: 500;
+  /* Monospace font */
+  font-family: monospace;
+}
+
+/* Main portal content area */
+.main-container {
+  /* Take up all available vertical space */
+  flex: 1;
+  /* Maximum content width for ultrawide financial displays */
+  max-width: 1600px;
+  /* Center horizontally */
+  margin: 0 auto;
+  /* Width fills 100% up to max-width */
+  width: 100%;
+  /* Page padding */
+  padding: 2rem;
+  /* Flex vertical column */
+  display: flex;
+  /* Vertical gap between dashboard sections */
+  flex-direction: column;
+  /* Gap between stats, filters, actions, and table */
+  gap: 1.75rem;
+}
+
+/* ========================================================================== */
+/* 4-CARD STATISTICS GRID (.stats-grid, .stat-card) */
+/* ========================================================================== */
+
+/* Responsive statistics grid */
+.stats-grid {
+  /* CSS Grid display */
+  display: grid;
+  /* Responsive 4-column layout collapsing on small screens */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  /* Gap between statistic cards */
+  gap: 1.25rem;
+}
+
+/* Base statistic card */
+.stat-card {
+  /* Dark surface background */
+  background-color: var(--bg-secondary);
+  /* Base perimeter border */
+  border: 1px solid var(--border);
+  /* Rounded corners */
+  border-radius: 0.5rem;
+  /* Internal spacing */
+  padding: 1.25rem 1.5rem;
+  /* Flex vertical stack */
+  display: flex;
+  /* Stack title, value, and meta */
+  flex-direction: column;
+  /* Space between card elements */
+  gap: 0.5rem;
+  /* Elevation shadow */
+  box-shadow: var(--shadow-sm);
+  /* Smooth transition on hover */
+  transition: var(--transition);
+  /* Position relative for accent borders */
+  position: relative;
+  /* Prevent content spill */
+  overflow: hidden;
+}
+
+/* Stat card hover lift */
+.stat-card:hover {
+  /* Subtle lift effect */
+  transform: translateY(-2px);
+  /* Elevated shadow */
+  box-shadow: var(--shadow-lg);
+}
+
+/* Total Queries Card - Blue Accent Border */
+.stat-card-total {
+  /* 4px top blue accent border */
+  border-top: 4px solid var(--blue);
+}
+
+/* Sensitive Queries Card - Red Accent Border */
+.stat-card-sensitive {
+  /* 4px top red accent border */
+  border-top: 4px solid var(--red);
+}
+
+/* Unique Users Card - Green Accent Border */
+.stat-card-users {
+  /* 4px top green accent border */
+  border-top: 4px solid var(--green);
+}
+
+/* Queries Today Card - Gold Accent Border */
+.stat-card-today {
+  /* 4px top gold accent border */
+  border-top: 4px solid var(--gold);
+}
+
+/* Header container inside stat card */
+.stat-card-header {
+  /* Flex row layout */
+  display: flex;
+  /* Align items */
+  align-items: center;
+  /* Spread label and icon */
+  justify-content: space-between;
+}
+
+/* Stat card label / title */
+.stat-label {
+  /* Muted secondary text color */
+  color: var(--text-secondary);
+  /* Uppercase title */
+  text-transform: uppercase;
+  /* Font size */
+  font-size: 0.75rem;
+  /* Semi-bold weight */
+  font-weight: 600;
+  /* Letter spacing */
+  letter-spacing: 0.05em;
+}
+
+/* Stat card decorative icon */
+.stat-icon {
+  /* Icon size */
+  font-size: 1.25rem;
+  /* Subtle opacity */
+  opacity: 0.8;
+}
+
+/* Stat card main numerical value */
+.stat-value {
+  /* Large numerical font size */
+  font-size: 2rem;
+  /* Bold weight */
+  font-weight: 700;
+  /* High contrast primary text */
+  color: var(--text-primary);
+  /* Monospace tabular numerals for zero jitter */
+  font-variant-numeric: tabular-nums;
+  /* Line height */
+  line-height: 1.1;
+}
+
+/* Stat card subtitle / description */
+.stat-meta {
+  /* Small meta font size */
+  font-size: 0.75rem;
+  /* Secondary text color */
+  color: var(--text-secondary);
+  /* Margin top */
+  margin-top: 0.25rem;
+}
+
+/* ========================================================================== */
+/* COLLAPSIBLE FILTER TOOLBAR (.filters-bar) */
+/* ========================================================================== */
+
+/* Filter toolbar container */
+.filters-bar {
+  /* Dark surface background */
+  background-color: var(--bg-secondary);
+  /* Perimeter border */
+  border: 1px solid var(--border);
+  /* Rounded corners */
+  border-radius: 0.5rem;
+  /* Padding */
+  padding: 1.25rem 1.5rem;
+  /* Elevation shadow */
+  box-shadow: var(--shadow-sm);
+  /* Flex vertical column */
+  display: flex;
+  /* Direction */
+  flex-direction: column;
+  /* Gap */
+  gap: 1rem;
+}
+
+/* Filter toolbar header */
+.filters-header {
+  /* Flex row */
+  display: flex;
+  /* Vertically align */
+  align-items: center;
+  /* Space between title and toggle */
+  justify-content: space-between;
+}
+
+/* Filter title */
+.filters-title {
+  /* Font size */
+  font-size: 0.875rem;
+  /* Bold weight */
+  font-weight: 600;
+  /* Gold accent color */
+  color: var(--gold);
+  /* Uppercase */
+  text-transform: uppercase;
+  /* Letter spacing */
+  letter-spacing: 0.05em;
+  /* Flex display */
+  display: flex;
+  /* Align icon and text */
+  align-items: center;
+  /* Gap */
+  gap: 0.5rem;
+}
+
+/* Grid of filter input controls */
+.filters-grid {
+  /* CSS Grid layout */
+  display: grid;
+  /* Responsive grid columns for inputs */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* Gap between inputs */
+  gap: 1rem;
+  /* Align items to bottom for aligned button row */
+  align-items: flex-end;
+}
+
+/* Filter input field container */
+.filter-item {
+  /* Flex vertical */
+  display: flex;
+  /* Direction */
+  flex-direction: column;
+  /* Gap between label and input */
+  gap: 0.375rem;
+}
+
+/* Filter label typography */
+.filter-label {
+  /* Small font size */
+  font-size: 0.75rem;
+  /* Medium weight */
+  font-weight: 500;
+  /* Secondary text color */
+  color: var(--text-secondary);
+}
+
+/* Action button container within filters grid */
+.filter-actions {
+  /* Flex row */
+  display: flex;
+  /* Align buttons horizontally */
+  gap: 0.5rem;
+  /* Ensure height matches inputs */
+  align-items: flex-end;
+}
+
+/* ========================================================================== */
+/* ACTION & EXPORT TOOLBAR */
+/* ========================================================================== */
+
+/* Action bar separating filters from audit table */
+.action-bar {
+  /* Flex row layout */
+  display: flex;
+  /* Align items vertically */
+  align-items: center;
+  /* Push record counter to left and PDF button to right */
+  justify-content: space-between;
+  /* Padding */
+  padding: 0.25rem 0;
+}
+
+/* Record counter display */
+.record-counter {
+  /* Font size */
+  font-size: 0.875rem;
+  /* Secondary text color */
+  color: var(--text-secondary);
+  /* Medium weight */
+  font-weight: 500;
+  /* Flex row */
+  display: flex;
+  /* Align items */
+  align-items: center;
+  /* Gap */
+  gap: 0.5rem;
+}
+
+/* Highlight count inside counter */
+.record-count-highlight {
+  /* Gold accent */
+  color: var(--gold);
+  /* Bold weight */
+  font-weight: 700;
+}
+
+/* ========================================================================== */
+/* RESPONSIVE AUDIT LOG TABLE (.audit-table) */
+/* ========================================================================== */
+
+/* Table container enabling horizontal scroll on smaller viewports */
+.table-container {
+  /* Dark surface background */
+  background-color: var(--bg-secondary);
+  /* Perimeter border */
+  border: 1px solid var(--border);
+  /* Rounded corners */
+  border-radius: 0.5rem;
+  /* Enable horizontal scrollbar if table overflows */
+  overflow-x: auto;
+  /* Elevation shadow */
+  box-shadow: var(--shadow-sm);
+}
+
+/* Audit log table element */
+.audit-table {
+  /* Expand across 100% of container width */
+  width: 100%;
+  /* Collapse table borders for clean grid presentation */
+  border-collapse: collapse;
+  /* Clean typography */
+  font-size: 0.8125rem;
+  /* Left align standard cell text */
+  text-align: left;
+}
+
+/* Table header styling */
+.audit-table th {
+  /* Dark tertiary background for header */
+  background-color: var(--bg-tertiary);
+  /* Signature finance gold header font color */
+  color: var(--gold);
+  /* Bold typography */
+  font-weight: 700;
+  /* Uppercase column headers */
+  text-transform: uppercase;
+  /* Subtle letter spacing */
+  letter-spacing: 0.05em;
+  /* Header padding */
+  padding: 0.875rem 1rem;
+  /* Bottom border dividing header from body */
+  border-bottom: 2px solid var(--border);
+  /* Single-line header labels */
+  white-space: nowrap;
+  /* Sticky header when scrolling vertically inside container */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Table body data cells */
+.audit-table td {
+  /* Cell padding */
+  padding: 0.75rem 1rem;
+  /* Bottom border dividing rows */
+  border-bottom: 1px solid rgba(55, 65, 81, 0.6);
+  /* Vertical alignment */
+  vertical-align: middle;
+  /* Primary text color */
+  color: var(--text-primary);
+}
+
+/* Zebra striping for even table rows */
+.audit-table tbody tr:nth-child(even) {
+  /* Subtle darker surface for even rows */
+  background-color: rgba(17, 24, 39, 0.5);
+}
+
+/* Row hover highlight */
+.audit-table tbody tr:hover {
+  /* Highlighting row on mouse hover */
+  background-color: rgba(55, 65, 81, 0.25);
+  /* Transition */
+  transition: background-color 0.15s ease;
+}
+
+/* ========================================================================== */
+/* CRITICAL: SENSITIVE QUERY ROW HIGHLIGHT (.row-sensitive) */
+/* ========================================================================== */
+
+/* Highlighted sensitive query table rows */
+.audit-table tbody tr.row-sensitive {
+  /* CRITICAL REQUIREMENT: Red-tinted background highlight */
+  background-color: rgba(239, 68, 68, 0.08) !important;
+  /* CRITICAL REQUIREMENT: 3px solid red left border */
+  border-left: 3px solid var(--red) !important;
+}
+
+/* Sensitive row hover state */
+.audit-table tbody tr.row-sensitive:hover {
+  /* Slightly more saturated red tint on hover */
+  background-color: rgba(239, 68, 68, 0.14) !important;
+}
+
+/* Cell truncation for query details */
+.text-truncate {
+  /* Constrain maximum column width */
+  max-width: 240px;
+  /* Prevent multiline text wrapping */
+  white-space: nowrap;
+  /* Hide text overflow */
+  overflow: hidden;
+  /* Append ellipsis (...) to overflow text */
+  text-overflow: ellipsis;
+  /* Indicate expandable content on hover */
+  cursor: pointer;
+  /* Monospace font for query statements */
+  font-family: monospace;
+  /* Slightly smaller size for query snippets */
+  font-size: 0.75rem;
+  /* Subtle styling */
+  color: #d1d5db;
+}
+
+/* Monospace timestamp cell */
+.cell-timestamp {
+  /* Tabular figures for aligned dates */
+  font-variant-numeric: tabular-nums;
+  /* Monospace font */
+  font-family: monospace;
+  /* Secondary text color */
+  color: var(--text-secondary);
+  /* Single line */
+  white-space: nowrap;
+}
+
+/* Latency response time cell */
+.cell-latency {
+  /* Monospace font */
+  font-family: monospace;
+  /* Tabular numbers */
+  font-variant-numeric: tabular-nums;
+  /* Right align */
+  text-align: right;
+  /* Muted text */
+  color: var(--text-secondary);
+  /* Single line */
+  white-space: nowrap;
+}
+
+/* Row index cell */
+.cell-index {
+  /* Muted text color */
+  color: #6b7280;
+  /* Monospace */
+  font-family: monospace;
+  /* Center align */
+  text-align: center;
+  /* Width */
+  width: 40px;
+}
+
+/* ========================================================================== */
+/* EMPTY STATE VIEW (.empty-state) */
+/* ========================================================================== */
+
+/* Empty state container when no audit logs match query */
+.empty-state {
+  /* Center align content */
+  text-align: center;
+  /* Generous padding */
+  padding: 4rem 2rem;
+  /* Flex vertical */
+  display: flex;
+  /* Stack icon, title, and hint */
+  flex-direction: column;
+  /* Center horizontally */
+  align-items: center;
+  /* Gap */
+  gap: 0.75rem;
+}
+
+/* Empty state icon */
+.empty-icon {
+  /* Large decorative icon size */
+  font-size: 3rem;
+  /* Reduced opacity */
+  opacity: 0.5;
+  /* Gold tint */
+  color: var(--gold);
+}
+
+/* Empty state heading */
+.empty-title {
+  /* Font size */
+  font-size: 1.125rem;
+  /* Semi-bold weight */
+  font-weight: 600;
+  /* Primary text */
+  color: var(--text-primary);
+}
+
+/* Empty state descriptive subtitle */
+.empty-desc {
+  /* Font size */
+  font-size: 0.875rem;
+  /* Secondary text */
+  color: var(--text-secondary);
+  /* Constrain paragraph width */
+  max-width: 400px;
+}
+
+/* ========================================================================== */
+/* PAGINATION TOOLBAR */
+/* ========================================================================== */
+
+/* Pagination container at table bottom */
+.pagination-container {
+  /* Dark surface background */
+  background-color: var(--bg-secondary);
+  /* Top border separating table rows from pagination */
+  border-top: 1px solid var(--border);
+  /* Internal padding */
+  padding: 0.875rem 1.5rem;
+  /* Flex row layout */
+  display: flex;
+  /* Vertically align controls */
+  align-items: center;
+  /* Space between left, center, and right */
+  justify-content: space-between;
+  /* Rounded bottom corners */
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+/* Current page indicator */
+.page-info {
+  /* Font size */
+  font-size: 0.875rem;
+  /* Secondary text */
+  color: var(--text-secondary);
+  /* Medium weight */
+  font-weight: 500;
+}
+
+/* Pagination button container */
+.pagination-controls {
+  /* Flex row */
+  display: flex;
+  /* Align buttons */
+  align-items: center;
+  /* Spacing */
+  gap: 0.5rem;
+}
+
+/* ========================================================================== */
+/* FOOTER COMPONENT */
+/* ========================================================================== */
+
+/* Dashboard footer */
+.dashboard-footer {
+  /* Top border */
+  border-top: 1px solid var(--border);
+  /* Background */
+  background-color: var(--bg-secondary);
+  /* Padding */
+  padding: 1.25rem 2rem;
+  /* Margin top auto to stick to bottom */
+  margin-top: auto;
+  /* Flex row */
+  display: flex;
+  /* Align items */
+  align-items: center;
+  /* Spread legal text and seal */
+  justify-content: space-between;
+  /* Font size */
+  font-size: 0.75rem;
+  /* Secondary text */
+  color: var(--text-secondary);
+}
+
+/* Footer security seal */
+.footer-seal {
+  /* Flex row */
+  display: flex;
+  /* Align */
+  align-items: center;
+  /* Gap */
+  gap: 0.5rem;
+  /* Emerald text */
+  color: #34d399;
+}

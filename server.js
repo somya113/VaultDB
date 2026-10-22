@@ -40,6 +40,12 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok', service: 'VaultDB'
 
 // Start listening only when this file is executed directly.
 if (require.main === module) {
+  const { getAuditStats } = require('./config/immudb');
+  const { seed } = require('./scripts/seedData');
+  if (getAuditStats().total_logs === 0) {
+    console.log('Seeding initial benchmark audit ledger entries...');
+    seed();
+  }
   const port = Number(process.env.PORT || 5000);
   app.listen(port, () => console.log(`VaultDB server listening on port ${port}.`));
 }

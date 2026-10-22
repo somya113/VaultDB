@@ -68,3 +68,6 @@ function seed() { // Expose a standalone command-line benchmark workflow.
 if (require.main === module) { // Avoid seeding data if another module imports this script.
   seed(); // Execute the one-shot benchmark data generation.
 }
+
+// Export the seed function so it can be called on server bootstrap if needed.
+module.exports = { seed };
