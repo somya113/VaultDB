@@ -1,7 +1,6 @@
-// Keep the simulated immutable ledger private to this module.
 const auditLedger = [];
 
-// Normalize optional filters once so all read operations behave consistently.
+
 const matchesFilters = (entry, filters = {}) => {
   const entryDate = new Date(entry.timestamp);
   const fromDate = filters.date_from ? new Date(filters.date_from) : null;
@@ -15,7 +14,7 @@ const matchesFilters = (entry, filters = {}) => {
   return matchesUser && matchesTable && matchesSensitive && matchesFrom && matchesTo;
 };
 
-// Append a frozen record with a monotonic ledger sequence and immutable seal.
+
 const writeAuditLog = (entry) => {
   const immutableEntry = Object.freeze({
     ...entry,
@@ -26,7 +25,7 @@ const writeAuditLog = (entry) => {
   return immutableEntry;
 };
 
-// Return newest-first filtered records with safe pagination defaults.
+
 const readAuditLogs = (filters = {}) => {
   const page = Math.max(Number(filters.page) || 1, 1);
   const limit = Math.min(Math.max(Number(filters.limit) || 20, 1), 100);
@@ -35,7 +34,7 @@ const readAuditLogs = (filters = {}) => {
   return { logs: filtered.slice(start, start + limit), page, limit, total: filtered.length };
 };
 
-// Calculate dashboard metrics from all currently stored immutable records.
+
 const getAuditStats = () => {
   const today = new Date().toISOString().slice(0, 10);
   const sensitiveCount = auditLedger.filter((entry) => entry.is_sensitive).length;
@@ -55,8 +54,8 @@ const getAuditStats = () => {
   };
 };
 
-// Return every matching record for reporting and PDF export.
+
 const getAllLogs = (filters = {}) => auditLedger.filter((entry) => matchesFilters(entry, filters)).reverse();
 
-// Export only the public ledger operations.
+
 module.exports = { writeAuditLog, readAuditLogs, getAuditStats, getAllLogs };

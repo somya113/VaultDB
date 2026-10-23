@@ -1,4 +1,3 @@
-// Build table- and role-aware authorization middleware.
 const checkAccess = (tableName, allowedRoles = ['admin', 'writer', 'reader']) => (req, res, next) => {
   const method = req.method.toUpperCase();
   if (tableName === 'audit' && ['DELETE', 'PUT', 'POST'].includes(method)) {
@@ -20,5 +19,5 @@ const checkAccess = (tableName, allowedRoles = ['admin', 'writer', 'reader']) =>
   return next();
 };
 
-// Export the middleware factory.
+
 module.exports = checkAccess;

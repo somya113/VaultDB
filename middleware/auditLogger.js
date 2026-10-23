@@ -1,11 +1,10 @@
-// Import UUID generation and immutable ledger writing.
 const { v4: uuidv4 } = require('uuid');
 const { writeAuditLog } = require('../config/immudb');
 
-// Identify sensitive fields without storing their values in audit records.
+
 const containsSensitiveData = (value) => /ssn|credit_card|password|salary/i.test(JSON.stringify(value || {}));
 
-// Record response metadata after the client has received the response.
+
 const auditLogger = (req, res, next) => {
   const startedAt = Date.now();
   const originalJson = res.json.bind(res);
@@ -35,5 +34,5 @@ const auditLogger = (req, res, next) => {
   return next();
 };
 
-// Export the non-blocking response logger.
+
 module.exports = auditLogger;

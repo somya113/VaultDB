@@ -1,10 +1,9 @@
-// Load environment variables for JWT secret resolution.
 require('dotenv').config();
 
-// Import JWT verification support.
+
 const jwt = require('jsonwebtoken');
 
-// Authenticate requests carrying a signed Bearer token.
+
 const authenticateToken = (req, res, next) => {
   const authorization = req.headers.authorization || '';
   const token = authorization.startsWith('Bearer ') ? authorization.slice(7) : null;
@@ -17,5 +16,5 @@ const authenticateToken = (req, res, next) => {
   }
 };
 
-// Export the middleware under a descriptive name.
+
 module.exports = authenticateToken;

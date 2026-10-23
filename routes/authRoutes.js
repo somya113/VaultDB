@@ -1,19 +1,18 @@
-// Load environment configuration for JWT signing.
 require('dotenv').config();
 
-// Import route, hashing, token, and database dependencies.
+
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const pool = require('../config/postgres');
 
-// Create an isolated authentication router.
+
 const router = express.Router();
 
-// Return only fields safe for client responses.
+
 const profile = (user) => ({ id: user.id, name: user.name, email: user.email, role: user.role, assigned_tables: user.assigned_tables });
 
-// Register a new reader account with a securely hashed password.
+
 router.post('/register', async (req, res) => {
   try {
     const { name, email, password, role = 'reader', assigned_tables = [] } = req.body;
@@ -32,14 +31,14 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Demo user profiles matching schema.sql for resilience when PostgreSQL is offline.
+
 const DEMO_USERS = {
   'admin@finance.com': { id: 1, name: 'Finance Administrator', email: 'admin@finance.com', role: 'admin', assigned_tables: ['customers', 'accounts', 'transactions', 'loans'] },
   'writer@finance.com': { id: 2, name: 'Finance Writer', email: 'writer@finance.com', role: 'writer', assigned_tables: ['customers', 'transactions'] },
   'reader@finance.com': { id: 3, name: 'Finance Reader', email: 'reader@finance.com', role: 'reader', assigned_tables: ['accounts'] },
 };
 
-// Validate credentials and issue a signed access token.
+
 router.post('/login', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM users WHERE email = $1', [req.body.email]);
@@ -62,5 +61,5 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Export the authentication router.
+
 module.exports = router;
